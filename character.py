@@ -3,9 +3,10 @@ from random import randint
 
 
 class Character(ABC):
-    def __init__(self, name: str, health: int, attack: int, defense: int) -> None:
+    def __init__(self, name: str, health: int, stamina: int, attack: int, defense: int) -> None:
         self._name = name
         self._health = health
+        self._stamina = stamina
         self._attack = attack
         self._defense = defense
         self._items: list[str] = []
@@ -25,6 +26,14 @@ class Character(ABC):
     @health.setter
     def health(self, new_health: int) -> None:
         self._health = new_health
+
+    @property
+    def stamina(self) -> int:
+        return self._stamina
+    
+    @stamina.setter
+    def stamina(self, new_stamina: int) -> None:
+        self._stamina = new_stamina
 
     @property
     def attack(self) -> int:
