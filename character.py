@@ -8,6 +8,7 @@ class Character(ABC):
         self._health = health
         self._attack = attack
         self._defense = defense
+        self._items: list[str] = []
     
     @property
     def name(self) -> str:
@@ -48,7 +49,6 @@ class Character(ABC):
     @abstractmethod
     def take_damage(self, damage: int) -> None:
         pass
-    
     
     def show_state(self) -> str:
         return f"{self.name} -> health: {self.health} | attack: {self.attack} | defense: {self.defense}"
