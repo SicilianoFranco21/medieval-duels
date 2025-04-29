@@ -63,7 +63,7 @@ class Character(ABC):
         target.receive_damage(self.attack)
         print(f"{self.name} performed an attack on {target.name}")
     
-    def receive_damage(self, damage: int) -> None:
+    def receive_damage(self, damage: int) -> int:
         actual_damage: int = max(0, (damage - self.defense))
         if actual_damage == 0:
             print(f"{self.name} did not received any damage")
