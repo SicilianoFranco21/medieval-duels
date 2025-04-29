@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from random import randint
 
 
 class Character(ABC):
@@ -51,26 +50,18 @@ class Character(ABC):
     def defense(self, new_defense: int) -> None:
         self._defense = new_defense
     
-    def perform_attack(self, target: 'Character') -> None:
-        energy_cost: int = 10
-        if not target.is_alive():
-            print(f"{target.name} is dead. (x_x)")
-            return
-        if self.energy < energy_cost:
-            print("Not enough energy to perform the attack")
-            return
-        self.energy = max(0, (self.energy - energy_cost))
-        print(f"{self.name} performed an attack on {target.name}")
-        target.receive_damage(self.attack)
-    
-    def receive_damage(self, damage: int) -> int:
+    def _receive_damage(self, damage: int) -> int:
         actual_damage: int = max(0, (damage - self.defense))
-        if actual_damage == 0:
-            print(f"{self.name} did not received any damage")
-            return
         self.health = max(0, (self.health - actual_damage))
-        print(f"{self.name} took {actual_damage} points of damage")
         return actual_damage
+
+    def perform_attack(self, target: 'Character') -> int:
+        energy_cost: int = 10
+        if self.energy < energy_cost:
+            return 0
+        self.energy = max(0, (self.energy - energy_cost))
+        inflicted_damage: int = target._receive_damage(self.attack)
+        return inflicted_damage
     
     def is_alive(self) -> bool:
         return self.health > 0
