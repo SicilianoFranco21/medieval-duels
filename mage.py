@@ -2,7 +2,15 @@ from character import Character
 
 
 class Mage(Character):
-    def __init__(self, name: str, mana: int = 100, health: int = 100, energy: int = 100, attack: int = 5, defense: int = 10) -> None:
+    def __init__(
+        self, 
+        name: str, 
+        mana: int = 100, 
+        health: int = 100, 
+        energy: int = 100, 
+        attack: int = 5, 
+        defense: int = 10
+        ) -> None:
         super().__init__(name, health, energy, attack, defense)
         self._mana = mana
     

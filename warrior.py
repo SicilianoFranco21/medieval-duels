@@ -2,7 +2,14 @@ from character import Character
 
 
 class Warrior(Character):
-    def __init__(self, name: str, health: int = 125, energy: int = 125, attack: int = 25, defense: int = 25) -> None:
+    def __init__(
+        self, 
+        name: str, 
+        health: int = 125, 
+        energy: int = 125, 
+        attack: int = 25, 
+        defense: int = 25
+        ) -> None:
         super().__init__(name, health, energy, attack, defense)
         
     def __repr__(self) -> str:
