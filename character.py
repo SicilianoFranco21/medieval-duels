@@ -60,8 +60,8 @@ class Character(ABC):
             print("Not enough energy to perform the attack")
             return
         self.energy = max(0, (self.energy - energy_cost))
-        target.receive_damage(self.attack)
         print(f"{self.name} performed an attack on {target.name}")
+        target.receive_damage(self.attack)
     
     def receive_damage(self, damage: int) -> int:
         actual_damage: int = max(0, (damage - self.defense))
