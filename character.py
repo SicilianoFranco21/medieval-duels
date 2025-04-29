@@ -57,19 +57,20 @@ class Character(ABC):
             print(f"{target.name} is dead. (x_x)")
             return
         if self.energy < energy_cost:
-            print(f"Not enough energy to perform the attack")
+            print("Not enough energy to perform the attack")
             return
-        self.energy = max(0, self.energy - energy_cost)
+        self.energy = max(0, (self.energy - energy_cost))
         target.receive_damage(self.attack)
         print(f"{self.name} performed an attack on {target.name}")
     
     def receive_damage(self, damage: int) -> None:
-        actual_damage: int = max(0, damage - self.defense)
+        actual_damage: int = max(0, (damage - self.defense))
         if actual_damage == 0:
             print(f"{self.name} did not received any damage")
             return
-        self.health = max(0, self.health - actual_damage)
+        self.health = max(0, (self.health - actual_damage))
         print(f"{self.name} took {actual_damage} points of damage")
+        return actual_damage
     
     def is_alive(self) -> bool:
         return self.health > 0
