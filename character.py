@@ -83,15 +83,15 @@ class Character(ABC):
         """
         self.energy = max(0, self.energy - self.ENERGY_COST)
     
-    def _calculate_damage(self, damage: int) -> int:
+    def _calculate_received_damage(self, incoming_damage: int) -> int:
         """
         Calculate the actual damage taken after applying defense.
 
         :param damage: Raw incoming damage.
         :return: Effective damage after defense reduction.
         """
-        actual_damage: int = max(0, (damage - self.defense))
-        return actual_damage
+        actual_damage_taken: int = max(0, (incoming_damage - self.defense))
+        return actual_damage_taken
 
     def receive_damage(self, damage: int) -> int:
         """
@@ -100,14 +100,14 @@ class Character(ABC):
         :param damage: Incoming raw damage.
         :return: Actual damage taken or ActionStatus.NO_DAMAGE_RECEIVED.
         """
-        actual_damage: int = self._calculate_damage(damage)
-        if actual_damage == 0:
+        received_damage: int = self._calculate_received_damage(damage)
+        if received_damage == 0:
             return ActionStatus.NO_DAMAGE_RECEIVED
         
-        self.health = max(0, (self.health - actual_damage))
-        return actual_damage
+        self.health = max(0, (self.health - received_damage))
+        return received_damage
 
-    def _check_resources(self) -> int:
+    def _check_energy_status(self) -> int:
         """
         Check if the character has enough energy to perform an action.
 
@@ -127,9 +127,9 @@ class Character(ABC):
         :param target: The target character to attack.
         :return: Damage dealt or ActionStatus code if attack fails.
         """
-        resource_status: int = self._check_resources()
-        if resource_status != ActionStatus.SUCCESS:
-            return resource_status
+        energy_status: int = self._check_energy_status()
+        if energy_status != ActionStatus.SUCCESS:
+            return energy_status
         
         inflicted_damage: int = target.receive_damage(self.attack)
         return inflicted_damage
