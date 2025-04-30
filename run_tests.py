@@ -1,6 +1,6 @@
 from time import time
-from tests.utils.prettySummaryFormatter import PrettySummaryFormatter
-from tests.utils.prettyTestResult import PrettyTestResult
+from tests.utils.pretty_summary_formatter import PrettySummaryFormatter
+from tests.utils.pretty_test_result import PrettyTestResult
 from unittest import TestLoader, TestSuite, TextTestRunner
 
 
