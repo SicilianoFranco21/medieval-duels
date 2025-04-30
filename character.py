@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
+from actionStatus import ActionStatus
 
 
 class Character(ABC):
+    _ActionStatus = ActionStatus
+    
     def __init__(self, name: str, health: int, energy: int, attack: int, defense: int) -> None:
         self._name = name
         self._health = health
@@ -9,6 +12,11 @@ class Character(ABC):
         self._attack = attack
         self._defense = defense
         self._items: list[str] = []
+    
+    @property
+    @abstractmethod
+    def ENERGY_COST(self) -> int:
+        pass
     
     @property
     def name(self) -> str:
@@ -49,17 +57,31 @@ class Character(ABC):
     @defense.setter
     def defense(self, new_defense: int) -> None:
         self._defense = new_defense
+
+    def _deduct_energy(self) -> None:
+        self.energy = max(0, self.energy - self.ENERGY_COST)
     
-    def _receive_damage(self, damage: int) -> int:
+    def _calculate_damage(self, damage: int) -> int:
         actual_damage: int = max(0, (damage - self.defense))
+        return actual_damage
+
+    def _receive_damage(self, damage: int) -> int:
+        actual_damage: int = self._calculate_damage(damage)
         self.health = max(0, (self.health - actual_damage))
         return actual_damage
 
+    def _check_resources(self) -> int:
+        if self.energy < self.ENERGY_COST:
+            return self._ActionStatus.INSUFFICIENT_ENERGY
+        
+        self._deduct_energy()
+        return self._ActionStatus.SUCCESS
+
     def perform_attack(self, target: 'Character') -> int:
-        energy_cost: int = 10
-        if self.energy < energy_cost:
-            return 0
-        self.energy = max(0, (self.energy - energy_cost))
+        resource_status: int = self._check_resources()
+        if resource_status != self._ActionStatus.SUCCESS:
+            return resource_status
+        
         inflicted_damage: int = target._receive_damage(self.attack)
         return inflicted_damage
     
