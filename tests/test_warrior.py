@@ -7,7 +7,7 @@ class TestWarrior(TestCase):
     def setUp(self) -> None:
         """Set up two Warrior instances for testing."""
         self.attacker: Warrior = Warrior("W-attacker")
-        self.target: Warrior = Warrior("W-defender")
+        self.target: Warrior = Warrior("W-target")
     
     def test_perform_attack_reduces_target_health(self) -> None:
         """Reduces target's health when attack power exceeds defense."""
