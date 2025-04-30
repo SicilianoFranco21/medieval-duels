@@ -11,6 +11,10 @@ class Warrior(Character):
         defense: int = 25
         ) -> None:
         super().__init__(name, health, energy, attack, defense)
+    
+    @property
+    def ENERGY_COST(self) -> int:
+        return 5
         
     def __repr__(self) -> str:
         return (f"Warrior(name={self.name!r}, health={self.health!r}, energy={self.energy!r}, "
