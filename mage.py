@@ -1,9 +1,8 @@
 from character import Character
+from action_status import ActionStatus
 
 
 class Mage(Character):
-    _MANA_COST: int = 25
-    
     def __init__(
         self, 
         name: str, 
@@ -19,6 +18,10 @@ class Mage(Character):
     @property
     def ENERGY_COST(self) -> int:
         return 10
+    
+    @property
+    def MANA_COST(self) -> int:
+        return 25
 
     @property
     def mana(self) -> int:
@@ -28,32 +31,32 @@ class Mage(Character):
     def mana(self, new_mana: int) -> None:
         self._mana = new_mana
 
-    def _calculate_magical_damage(self, buff: int) -> int:
+    def _calculate_inflicted_magical_damage(self, buff: int) -> int:
         buff = max(1, buff)
         magical_damage: int = (self.attack*buff)
         return magical_damage
         
     def _deduct_mana(self) -> None:
-        self.mana = max(0, self.mana - self._MANA_COST)
+        self.mana = max(0, self.mana - self.MANA_COST)
     
-    def _check_magical_resources(self) -> int:
-        if self.mana < self._MANA_COST:
-            return self._ActionStatus.INSUFFICIENT_MANA
+    def _check_mana_status(self) -> int:
+        if self.mana < self.MANA_COST:
+            return ActionStatus.INSUFFICIENT_MANA
         
         self._deduct_mana()
-        return self._ActionStatus.SUCCESS
+        return ActionStatus.SUCCESS
 
     def cast_magic_attack(self, target: Character, buff: int) -> int:
-        resource_status: int = self._check_resources()
-        if resource_status != self._ActionStatus.SUCCESS:
-            return resource_status
+        energy_status: int = self._check_energy_status()
+        if energy_status != ActionStatus.SUCCESS:
+            return energy_status
         
-        magical_resource_status: int = self._check_magical_resources()
-        if magical_resource_status != self._ActionStatus.SUCCESS:
-            return magical_resource_status
+        mana_status: int = self._check_mana_status()
+        if mana_status != ActionStatus.SUCCESS:
+            return mana_status
         
-        magical_damage: int = self._calculate_magical_damage(buff)
-        inflicted_damage: int = target._receive_damage(magical_damage)
+        raw_magical_damage: int = self._calculate_inflicted_magical_damage(buff)
+        inflicted_damage: int = target.receive_damage(raw_magical_damage)
         return inflicted_damage
     
     def __repr__(self) -> str:
