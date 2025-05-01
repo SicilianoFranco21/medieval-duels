@@ -1,7 +1,6 @@
 from mage import Mage
 from unittest import TestCase
-from unittest.mock import patch
-from io import StringIO
+from action_status import ActionStatus
 
 
 class TestMage(TestCase):
@@ -9,97 +8,93 @@ class TestMage(TestCase):
         self.attacker: Mage = Mage("M-attacker")
         self.target: Mage = Mage("M-target")
     
-    def test_cast_magic_attack_reduces_target_health(self) -> None:
-        """Test that cast_magic_attack reduces the target's health."""
-        pass
-
-    def test_cast_magic_attack_reduces_attacker_energy(self) -> None:
-        """Test that cast_magic_attack reduces the attacker's energy."""
-        pass
-
-    def test_cast_magic_attack_to_dead_target(self) -> None:
-        """Test that cast_magic_attack prints a message if the target is dead."""
-        pass
-
-    def test_cast_magic_attack_with_no_energy(self) -> None:
-        """Test that cast_magic_attack prints a message if the attacker has no energy."""
-        pass
-
-    def test_cast_magic_attack_with_no_mana(self) -> None:
-        """Test that cast_magic_attack prints a message if the attacker has no mana."""
-        pass
-
-    def test_cast_magic_attack_successfully(self) -> None:
-        """Test that cast_magic_attack prints a successful spell cast message."""
-        pass
-
-    
     def test_perform_attack_reduces_target_health(self) -> None:
-        """Test that perform_attack reduces the target's health."""
+        """Reduces target's health when attack power exceeds defense."""
         health_before: int = self.target.health
         self.attacker.attack = 50
         self.attacker.perform_attack(self.target)
         self.assertLess(self.target.health, health_before)
     
     def test_perform_attack_reduces_attacker_energy(self) -> None:
-        """Test that perform_attack reduces the attacker's energy."""
+        """Reduces attacker's energy after performing an attack."""
         energy_before: int = self.attacker.energy
         self.attacker.perform_attack(self.target)
         self.assertLess(self.attacker.energy, energy_before)
-
-    def test_perform_attack_to_dead_target(self) -> None:
-        """Test that perform_attack prints a message if the target is dead."""
-        self.target.health = 0
-        with patch("sys.stdout", new=StringIO()) as fake_stdout:
-            self.attacker.perform_attack(self.target)
-        self.assertIn(f"{self.target.name} is dead. (x_x)", fake_stdout.getvalue().strip())
     
     def test_perform_attack_with_no_energy(self) -> None:
-        """Test that perform_attack prints a message if attacker has no energy."""
+        """Returns INSUFFICIENT_ENERGY if attacker has no energy."""
         self.attacker.energy = 0
-        with patch("sys.stdout", new=StringIO()) as fake_stdout:
-            self.attacker.perform_attack(self.target)
-        self.assertIn("Not enough energy to perform the attack", fake_stdout.getvalue().strip())
+        attack_attemp: int = self.attacker.perform_attack(self.target)
+        self.assertEqual(attack_attemp, ActionStatus.INSUFFICIENT_ENERGY)
     
     def test_perform_attack_successfully(self) -> None:
-        """Test that perform_attack prints a successful attack message."""
+        """Returns actual damage dealt when energy is sufficient."""
         self.attacker.attack = 50
-        with patch("sys.stdout", new=StringIO()) as fake_stdout:
-            self.attacker.perform_attack(self.target)
-        self.assertIn(f"{self.attacker.name} performed an attack on {self.target.name}", fake_stdout.getvalue().strip())
+        expected_damage: int = max(0, self.attacker.attack - self.target.defense)
+        attack_attemp: int = self.attacker.perform_attack(self.target)
+        self.assertEqual(attack_attemp, expected_damage)
         
-    def test_receive_damage_zero_damage(self) -> None:
-        """Test that receive_damage prints a message when no damage is taken."""
-        with patch("sys.stdout", new=StringIO()) as fake_stdout:
-            self.target.receive_damage(self.attacker.attack)
-            self.assertIn(f"{self.target.name} did not received any damage", fake_stdout.getvalue().strip())
+    def test_perform_attack_without_inflict_damage(self) -> None:
+        """Returns NO_DAMAGE_RECEIVED when attack is too weak or fully blocked by defense."""
+        attack_attemp: int = self.attacker.perform_attack(self.target)
+        self.assertEqual(attack_attemp, ActionStatus.NO_DAMAGE_RECEIVED)
+        
+    def test_cast_magic_attack_reduces_target_health(self) -> None:
+        """Reduces target's health when a magic attack is cast successfully."""
+        health_before: int = self.target.health
+        self.attacker.cast_magic_attack(self.target, buff=5)
+        self.assertLess(self.target.health, health_before)
 
-    def test_receive_damage_successfully(self) -> None:
-        """Test that receive_damage prints a message when damage is taken."""
+    def test_cast_magic_attack_reduces_attacker_energy(self) -> None:
+        """Reduces attacker's energy after casting a magic attack."""
+        energy_before: int = self.attacker.energy
+        self.attacker.cast_magic_attack(self.target, buff=5)
+        self.assertLess(self.attacker.energy, energy_before)
+
+    def test_cast_magic_attack_with_no_energy(self) -> None:
+        """Returns INSUFFICIENT_ENERGY if caster has no energy to perform magic attack."""
+        self.attacker.energy = 0
+        attack_attemp: int = self.attacker.cast_magic_attack(self.target, buff=5)
+        self.assertEqual(attack_attemp, ActionStatus.INSUFFICIENT_ENERGY)
+
+    def test_cast_magic_attack_successfully(self) -> None:
+        """Returns actual magic damage dealt when energy and mana are sufficient."""
+        buff: int = 5
         self.attacker.attack = 50
-        with patch("sys.stdout", new=StringIO()) as fake_stdout:
-            actual_damage: int = self.target.receive_damage(self.attacker.attack)
-            self.assertIn(f"{self.target.name} took {actual_damage} points of damage", fake_stdout.getvalue().strip())
+        expected_damage: int = max(0, self.attacker.attack*buff - self.target.defense)
+        attack_attemp: int = self.attacker.cast_magic_attack(self.target, buff)
+        self.assertEqual(attack_attemp, expected_damage)
+
+    def test_cast_magic_attack_without_inflict_damage(self) -> None:
+        """Returns NO_DAMAGE_RECEIVED if the magic attack fails to surpass defense."""
+        attack_attemp: int = self.attacker.cast_magic_attack(self.target, buff=2)
+        self.assertEqual(attack_attemp, ActionStatus.NO_DAMAGE_RECEIVED)
+
+    def test_cast_magic_attack_reduces_attacker_mana(self) -> None:
+        """Reduces attacker's mana after casting a magic attack."""
+        mana_before: int = self.attacker.mana
+        self.attacker.cast_magic_attack(self.target, buff=5)
+        self.assertLess(self.attacker.mana, mana_before)
     
-    def test_is_alive_true(self) -> None:
-        """Test that is_alive returns False when health is 0."""
+    def test_is_alive_false(self) -> None:
+        """Returns False when character's health is zero."""
         self.target.health = 0
         is_target_alive: bool = self.target.is_alive()
         self.assertFalse(is_target_alive)
 
-    def test_is_alive_false(self) -> None:
-        """Test that is_alive returns True when health is above 0."""
+    def test_is_alive_true(self) -> None:
+        """Returns True when character's health is above zero."""
         is_target_alive: bool = self.target.is_alive()
         self.assertTrue(is_target_alive)
     
-    def test_repr_(self) -> None:
-        """Test the __repr__ method for the Warrior class."""
+    def test_repr(self) -> None:
+        """Returns correct __repr__ output for a Mage."""
         expected_output: str = (f"Mage(name={self.attacker.name!r}, mana={self.attacker.mana!r}, health={self.attacker.health!r}, "
                                 f"energy={self.attacker.energy!r}, attack={self.attacker.attack!r}, defense={self.attacker.defense!r})")
         self.assertEqual(expected_output, repr(self.attacker))
     
     def test_str(self) -> None:
-        """Test the __str__ method for the Warrior class."""
+        """Returns readable __str__ description of a Mage."""
         expected_output: str = (f"{self.attacker.name} is a Mage with {self.attacker.health} health, {self.attacker.mana} mana, "
                 f"{self.attacker.energy} energy, {self.attacker.attack} attack, and {self.attacker.defense} defense.")
         self.assertEqual(expected_output, str(self.attacker))
