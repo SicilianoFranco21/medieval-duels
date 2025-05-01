@@ -51,7 +51,7 @@ class TestWarrior(TestCase):
         is_target_alive: bool = self.target.is_alive()
         self.assertTrue(is_target_alive)
     
-    def test_repr_(self) -> None:
+    def test_repr(self) -> None:
         """Returns correct __repr__ output for a Warrior."""
         expected_output: str = (f"Warrior(name={self.attacker.name!r}, health={self.attacker.health!r}, energy={self.attacker.energy!r}, "
                                 f"attack={self.attacker.attack!r}, defense={self.attacker.defense!r})")
