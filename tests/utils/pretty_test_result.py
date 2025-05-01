@@ -9,12 +9,12 @@ class PrettyTestResult(TextTestResult):
     def addSuccess(self, test: TestCase) -> None:
         super().addSuccess(test)
         self.successes.append(test)
-        self.stream.writeln(f"✅ {test._testMethodName:<44} - {test.shortDescription()}")
+        self.stream.writeln(f"✅ {test.__class__.__name__:<20} - {test._testMethodName:<50} - {test.shortDescription()}")
     
     def addFailure(self, test: TestCase, err) -> None:
         super().addFailure(test, err)
-        self.stream.writeln(f"❌ {test._testMethodName:<44} - {test.shortDescription()}")
+        self.stream.writeln(f"❌ {test.__class__.__name__:<20} - {test._testMethodName:<50} - {test.shortDescription()}")
 
     def addError(self, test: TestCase, err) -> None:
         super().addError(test, err)
-        self.stream.writeln(f"⚠️ {test._testMethodName:<44} - {test.shortDescription()}")
+        self.stream.writeln(f"⚠️ {test.__class__.__name__:<20} - {test._testMethodName:<50} - {test.shortDescription()}")
