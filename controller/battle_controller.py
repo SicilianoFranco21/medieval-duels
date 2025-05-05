@@ -79,3 +79,21 @@ class BattleController:
         """
         self.handle_attack(self.player, self.cpu, self.player.name, self.cpu.name)
         self.handle_attack(self.cpu, self.player, self.cpu.name, self.player.name)
+
+    def surrender(self, character: Character, label: str) -> None:
+        """
+        Handle the surrender action for a character.
+
+        This method causes the specified character to surrender the battle.
+        It sets their health to zero and logs the surrender action. If the 
+        character is already dead, a message indicating that is logged instead.
+
+        :param character: The character that is surrendering.
+        :param label: A display name for logging purposes.
+        :return: None
+        """
+        if not character.is_alive():
+            BattleLogger.log_target_already_dead(label)
+            return
+        character.surrender()
+        BattleLogger.log_surrender(label)
