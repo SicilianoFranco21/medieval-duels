@@ -23,7 +23,7 @@ class BattleView:
     
     @staticmethod
     def show_character_stats(character: Character) -> None:
-        print("\n" + "=" * 40)
+        print("=" * 40)
         print(f" 📛  {character.name.upper()}")
         print("=" * 40)
 
