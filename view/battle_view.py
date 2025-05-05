@@ -34,6 +34,18 @@ class BattleView:
         print("=" * 40)
 
     @staticmethod
+    def wait_for_user() -> None:
+        """
+        Pause the program execution until the user presses Enter.
+
+        This method is typically used to allow the player to read messages 
+        or battle outcomes before the screen is cleared or the game proceeds 
+        to the next action.
+        """
+        input("Press Enter to continue...")
+
+
+    @staticmethod
     def clear_screen() -> None:
         if platform_system() == "Windows":
             os_system("cls")
