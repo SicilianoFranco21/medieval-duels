@@ -42,7 +42,7 @@ class BattleSession:
                 if option == "1":
                     turn += 1
 
-            input("Press Enter to continue...")
+            BattleView.wait_for_user()
             BattleView.clear_screen()
 
         return self.controller.get_winner()
@@ -66,4 +66,4 @@ class BattleSession:
         elif option == "4":
             BattleView.show_character_stats(self.controller.cpu)
         elif option == "5":
-            pass  # Placeholder for surrender logic (to be implemented)
+            self.controller.surrender(self.controller.player, self.controller.player.name)
