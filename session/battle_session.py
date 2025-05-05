@@ -12,7 +12,6 @@ class BattleSession:
     delegating combat logic to the BattleController. It serves as the 
     main game loop for the battle system.
     """
-
     def __init__(self, controller: BattleController) -> None:
         """
         Initialize the battle session with a BattleController.
@@ -31,8 +30,6 @@ class BattleSession:
 
         :return: The winning character at the end of the battle.
         """
-        turn: int = 0
-
         while not self.controller.is_over():
             BattleView.show_battle_options()
             option = BattleView.request_user_option()
@@ -40,8 +37,6 @@ class BattleSession:
 
             if self.controller.player.is_alive():
                 self.process_option(option)
-                if option == "1":
-                    turn += 1
 
             BattleView.wait_for_user()
             BattleView.clear_screen()
