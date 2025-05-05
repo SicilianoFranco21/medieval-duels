@@ -1,15 +1,19 @@
 from character import Character
+from os import system as os_system
+from platform import system as platform_system
 
 
 class BattleView:
     @staticmethod
     def show_battle_options() -> None:
         print("+=====================================+")
-        print("|         🧭 BATTLE OPTIONS            |")
+        print("|         ⚔️  BATTLE OPTIONS           |")
         print("+-------------------------------------+")
-        print("| 1. ⚔️  Attack                        |")
-        print("| 2. 🔋 Recover Energy                 |")
-        print("| 3. 📊 Show Player Status             |")
+        print("| 1. 🗡️  Attack                        |")
+        print("| 2. 💧 Recover Energy                |")
+        print("| 3. 🧍 Show Player Status            |")
+        print("| 4. 🤖 Show CPU Status               |")
+        print("| 5. 🏳️  Surrender                     |")
         print("+=====================================+")
 
     @staticmethod
@@ -28,3 +32,10 @@ class BattleView:
         print(f" 🗡️  Ataque:  {character.attack}")
         print(f" 🛡️  Defensa: {character.defense}")
         print("=" * 40)
+
+    @staticmethod
+    def clear_screen() -> None:
+        if platform_system() == "Windows":
+            os_system("cls")
+        else:
+            os_system("clear")
