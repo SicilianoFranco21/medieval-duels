@@ -134,6 +134,10 @@ class Character(ABC):
         inflicted_damage: int = target.receive_damage(self.attack)
         return inflicted_damage
     
+    def recover_energy(self) -> None:
+        recovered_energy: int = 20
+        self.energy += recovered_energy
+    
     def is_alive(self) -> bool:
         """
         Check if the character is still alive.
