@@ -20,6 +20,27 @@ class BattleSession:
         """
         self.controller = controller
 
+    def process_option(self, option: str) -> None:
+        """
+        Process the player's selected action.
+
+        Handles attacking, recovering energy, showing character stats,
+        or surrendering. Logs appropriate messages for energy recovery.
+
+        :param option: String representing the player's menu choice.
+        """
+        if option == "1":
+            self.controller.execute_combat_phase()
+        elif option == "2":
+            self.controller.player.recover_energy()
+            BattleLogger.log_energy_recovered(self.controller.player.name, amount=20)
+        elif option == "3":
+            BattleView.show_character_stats(self.controller.player)
+        elif option == "4":
+            BattleView.show_character_stats(self.controller.cpu)
+        elif option == "5":
+            self.controller.surrender(self.controller.player, self.controller.player.name)
+
     def run(self) -> Character:
         """
         Run the main battle loop until one character is defeated.
@@ -42,24 +63,3 @@ class BattleSession:
             BattleView.clear_screen()
 
         return self.controller.get_winner()
-
-    def process_option(self, option: str) -> None:
-        """
-        Process the player's selected action.
-
-        Handles attacking, recovering energy, showing character stats,
-        or surrendering. Logs appropriate messages for energy recovery.
-
-        :param option: String representing the player's menu choice.
-        """
-        if option == "1":
-            self.controller.execute_combat_phase()
-        elif option == "2":
-            self.controller.player.recover_energy()
-            BattleLogger.log_energy_recovered(self.controller.player.name, amount=20)
-        elif option == "3":
-            BattleView.show_character_stats(self.controller.player)
-        elif option == "4":
-            BattleView.show_character_stats(self.controller.cpu)
-        elif option == "5":
-            self.controller.surrender(self.controller.player, self.controller.player.name)
