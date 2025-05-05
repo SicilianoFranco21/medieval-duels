@@ -135,6 +135,7 @@ class Character(ABC):
         return inflicted_damage
     
     def recover_energy(self) -> None:
+        """Recover a fixed amount of energy for the character."""
         recovered_energy: int = 20
         self.energy += recovered_energy
     
