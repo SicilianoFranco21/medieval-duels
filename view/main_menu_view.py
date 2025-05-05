@@ -1,4 +1,7 @@
-class MainMenuView:
+from view.base_view import BaseView
+
+
+class MainMenuView(BaseView):
     """
     A class responsible for displaying and handling the main menu
     in the Medieval Duels game.
@@ -29,13 +32,3 @@ class MainMenuView:
         print("3. Create New Player")
         print("4. Exit")
         print("=" * 40)
-
-    @staticmethod
-    def request_main_option() -> str:
-        """
-        Prompts the user to select an option from the main menu.
-
-        Returns:
-            str: The user's input corresponding to a menu option.
-        """
-        return input("Choose an option: ")
