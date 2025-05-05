@@ -44,7 +44,6 @@ class BattleView:
         """
         input("Press Enter to continue...")
 
-
     @staticmethod
     def clear_screen() -> None:
         if platform_system() == "Windows":
