@@ -146,6 +146,9 @@ class Character(ABC):
         :return: True if health > 0, False otherwise.
         """
         return self.health > 0
+
+    def surrender(self) -> None:
+        self.health = 0
     
     @abstractmethod
     def __repr__(self) -> str:
