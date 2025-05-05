@@ -148,6 +148,15 @@ class Character(ABC):
         return self.health > 0
 
     def surrender(self) -> None:
+        """
+        Forfeit the battle by setting the character's health to zero.
+
+        This method immediately ends the character's participation in the battle
+        by marking them as defeated. It does not trigger damage calculations or 
+        energy costs—it's an unconditional loss.
+
+        :return: None
+        """
         self.health = 0
     
     @abstractmethod
