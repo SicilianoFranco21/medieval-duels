@@ -80,7 +80,7 @@ class BattleController:
         self.handle_attack(self.player, self.cpu, self.player.name, self.cpu.name)
         self.handle_attack(self.cpu, self.player, self.cpu.name, self.player.name)
 
-    def surrender(self, character: Character, label: str) -> None:
+    def surrender(self, character: Character, character_name: str) -> None:
         """
         Handle the surrender action for a character.
 
@@ -93,7 +93,7 @@ class BattleController:
         :return: None
         """
         if not character.is_alive():
-            BattleLogger.log_target_already_dead(label)
+            BattleLogger.log_target_already_dead(character_name)
             return
         character.surrender()
-        BattleLogger.log_surrender(label)
+        BattleLogger.log_surrender(character_name)
