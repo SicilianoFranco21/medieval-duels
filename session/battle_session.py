@@ -36,6 +36,7 @@ class BattleSession:
         while not self.controller.is_over():
             BattleView.show_battle_options()
             option = BattleView.request_user_option()
+            BattleView.clear_screen()
 
             if self.controller.player.is_alive():
                 self.process_option(option)
