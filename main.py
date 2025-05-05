@@ -1,8 +1,8 @@
-from character import Character
-from mage import Mage
-from warrior import Warrior
-from battle_controller import BattleController
-from battle_session import BattleSession
+from core.character import Character
+from core.mage import Mage
+from core.warrior import Warrior
+from controller.battle_controller import BattleController
+from session.battle_session import BattleSession
 
 
 def main() -> None:

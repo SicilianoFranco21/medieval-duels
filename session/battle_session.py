@@ -1,7 +1,7 @@
-from battle_logger import BattleLogger
-from battle_view import BattleView
-from battle_controller import BattleController
-from character import Character
+from core.battle_logger import BattleLogger
+from view.battle_view import BattleView
+from controller.battle_controller import BattleController
+from core.character import Character
 
 
 class BattleSession:
@@ -40,13 +40,6 @@ class BattleSession:
             if self.controller.player.is_alive():
                 self.process_option(option)
                 if option == "1":
-                    print("-----------------------------------")
-                    self.controller.handle_attack(
-                        self.controller.cpu,
-                        self.controller.player,
-                        self.controller.cpu.name,
-                        self.controller.player.name
-                    )
                     turn += 1
 
             input("Press Enter to continue...")

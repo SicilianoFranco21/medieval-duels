@@ -1,5 +1,5 @@
-from character import Character
-from action_status import ActionStatus
+from core.character import Character
+from core.action_status import ActionStatus
 
 
 class Mage(Character):

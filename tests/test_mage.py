@@ -1,6 +1,6 @@
-from mage import Mage
+from core.mage import Mage
 from unittest import TestCase
-from action_status import ActionStatus
+from core.action_status import ActionStatus
 
 
 class TestMage(TestCase):

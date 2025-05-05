@@ -1,4 +1,4 @@
-from character import Character
+from core.character import Character
 
 
 class Warrior(Character):

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from action_status import ActionStatus
+from core.action_status import ActionStatus
 
 
 class Character(ABC):   

@@ -1,5 +1,5 @@
-from warrior import Warrior
-from action_status import ActionStatus
+from core.warrior import Warrior
+from core.action_status import ActionStatus
 from unittest import TestCase
 
 

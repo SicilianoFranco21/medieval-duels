@@ -1,4 +1,4 @@
-from character import Character
+from core.character import Character
 from os import system as os_system
 from platform import system as platform_system
 

@@ -1,6 +1,6 @@
-from action_status import ActionStatus
-from character import Character
-from battle_logger import BattleLogger
+from core.action_status import ActionStatus
+from core.character import Character
+from core.battle_logger import BattleLogger
 
 
 class BattleController:
