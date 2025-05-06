@@ -7,27 +7,27 @@
 ```
 medieval-duels/
 ├── core/
-│   ├── action_status.py     # Enum of available actions
-│   ├── character.py         # Definition of the Character class and subclasses
-│   ├── logger.py            # Battle event logger
+│   ├── action_status.py                    # Enum of available actions
+│   ├── character.py                        # Definition of the Character class and subclasses
+│   ├── logger.py                           # Battle event logger
 ├── controller/
-│   ├── battle_controller.py # Battle logic
-│   ├── main_controller.py   # Main game coordination
+│   ├── battle_controller.py                # Battle logic
+│   ├── main_controller.py                  # Main game coordination
 ├── session/
-│   ├── battle_session.py    # Handles battle sessions
-│   ├── main_session.py      # Manages main sessions
+│   ├── battle_session.py                   # Handles battle sessions
+│   ├── main_session.py                     # Manages main sessions
 ├── tests/
 │   ├── utils/               
-│   │    ├── pretty_summary_formatter.py   # Formats test summaries with readable output
-│   │    └── pretty_test_result.py         # Custom result class to enhance unittest output
-│   ├── test_mage.py                      # Unit tests for the Mage class
-│   ├── test_warrior.py                   # Unit tests for the Warrior class
+│   │    ├── pretty_summary_formatter.py    # Formats test summaries with readable output
+│   │    └── pretty_test_result.py          # Custom result class to enhance unittest output
+│   ├── test_mage.py                        # Unit tests for the Mage class
+│   ├── test_warrior.py                     # Unit tests for the Warrior class
 ├── view/
-│   ├── base_view.py         # Base class for views
-│   ├── battle_view.py       # Battle view
-│   ├── main_menu_view.py    # Main menu view
-├── main.py                  # Game entry point
-├── run_tests.py             # Script to run tests
+│   ├── base_view.py                        # Base class for views
+│   ├── battle_view.py                      # Battle view
+│   ├── main_menu_view.py                   # Main menu view
+├── main.py                                 # Game entry point
+├── run_tests.py                            # Script to run tests
 └── README.md
 ```
 
@@ -65,7 +65,7 @@ python main.py
 
 To run the available tests:
 
-```bash
+```
 python run_tests.py
 ```
 
