@@ -53,13 +53,13 @@ class BattleSession:
         """
         while not self.controller.is_over():
             BattleView.show_battle_options()
-            option = BattleView.request_user_option()
+            option: str = BattleView.request_user_option()
             BattleView.clear_screen()
 
             if self.controller.player.is_alive():
                 self.process_option(option)
 
-            BattleView.wait_for_user()
-            BattleView.clear_screen()
+                BattleView.wait_for_user()
+                BattleView.clear_screen()
 
         return self.controller.get_winner()
