@@ -80,7 +80,7 @@ This project is under development. Future improvements may include:
 ## 👤 Author
 
 - **Created by:** SicilianoFranco21
-- **Linkedin:** [Franco Siciliano](https://www.linkedin.com/in/franco-siciliano/)
+- **LinkedIn:** <a href="https://www.linkedin.com/in/franco-siciliano/" target="_blank">Franco Siciliano</a>
 
 ---
 
