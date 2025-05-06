@@ -79,7 +79,8 @@ This project is under development. Future improvements may include:
 
 ## 👤 Author
 
-Created by SicilianoFranco21
+- **Created by:** SicilianoFranco21
+- **Linkedin:** [Franco Siciliano](https://www.linkedin.com/in/franco-siciliano/)
 
 ---
 
