@@ -31,10 +31,10 @@ medieval-duels/
 └── README.md
 ```
 
-## 🧙 Characters
+## 👥 Characters
 
-- **Warrior**: High defense and physical attack.
-- **Mage**: Lower defense, but powerful magic attacks and good energy recovery.
+- 🛡️ **Warrior**: High defense and physical attack.  
+- 🧙‍♂️ **Mage**: Lower defense, but powerful magic attacks and good energy recovery.
 
 ## 🎮 How to Play
 
@@ -45,21 +45,21 @@ python main.py
 ```
 
 2. From the main menu, you can:
-   - Start a new battle
-   - Load an existing player
-   - Create a new player
-   - Exit the game
+   - 🕹️ Start a new battle
+   - 💾 Load an existing player *(Coming Soon)* 
+   - 👤 Create a new player *(Coming Soon)* 
+   - ❌ Exit the game
 
 3. During battle, you can:
-   - Attack
-   - Recover energy
-   - View player or CPU status
-   - Surrender
+   - ⚔️ Attack  
+   - 🔋 Recover energy  
+   - 📊 View player or CPU status  
+   - 🏳️ Surrender
 
 ## ✅ Requirements
 
-- Python 3.8+
-- No external libraries required
+- 🐍 Python 3.8+  
+- 📦 No external libraries required
 
 ## 🔍 Tests
 
@@ -72,15 +72,15 @@ python run_tests.py
 ## 📌 Status
 
 This project is under development. Future improvements may include:
-- Save/load system
-- Improved AI
-- Special abilities
-- Leveling and progression system
+- 💾 Save/load system  
+- 🧠 Improved AI  
+- ✨ Special abilities  
+- 📈 Leveling and progression system
 
 ## 👤 Author
 
-- **Created by:** SicilianoFranco21
-- **LinkedIn:** [Franco Siciliano](https://www.linkedin.com/in/franco-siciliano/)
+- 👨‍💻 **Created by:** SicilianoFranco21  
+- 🔗 **LinkedIn:** [Franco Siciliano](https://www.linkedin.com/in/franco-siciliano/)
 
 ---
 
